@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:tempates="clr-namespace:Movies.Forms.Views.Templates"
+             x:Class="Movies.Forms.Views.tab_favorites.FilmDetailPage"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                     Command="{Binding RefreshCommand}">
+            <tempates:FilmDetailsView />
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

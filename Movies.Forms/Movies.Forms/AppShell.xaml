@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:Movies.Forms.Views"
+       xmlns:favs="clr-namespace:Movies.Forms.Views.tab_favorites"
+       xmlns:films="clr-namespace:Movies.Forms.Views.tab_films"
+       xmlns:const="clr-namespace:Movies.Forms.Properties"
+       x:Class="Movies.Forms.AppShell">
+    <TabBar>
+        <Tab Title="Films"
+             Icon="{OnPlatform Android=ic_films}"
+             Route="{x:Static const:Constants.film_tab_route}">
+            <ShellContent ContentTemplate="{DataTemplate films:FilmsPage}" />
+        </Tab>
+        <Tab Title="Favorites"
+             Icon="{OnPlatform Android=ic_favs}">
+            <ShellContent ContentTemplate="{DataTemplate favs:FavoritesPage}" 
+                          Route="{x:Static const:Constants.fav_tab_route}"/>
+        </Tab>
+        <Tab Title="About"
+             Icon="{OnPlatform Android=ic_about}">
+            <ShellContent>
+                <views:AboutPage />
+            </ShellContent>
+        </Tab>
+    </TabBar>
+</Shell> 

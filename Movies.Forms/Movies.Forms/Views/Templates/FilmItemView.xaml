@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:converts="clr-namespace:Movies.Forms.Converters"
+      x:Class="Movies.Forms.Views.Templates.FilmItemView" 
+      xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+      Padding="15">
+    <Grid.Resources>
+        <ResourceDictionary>
+            <converts:AddFavIconStatusConverter x:Key="FavIconConverter" />
+            <converts:MiniaturePosterConverter x:Key="PosterMinifiedConverter" />
+        </ResourceDictionary>
+    </Grid.Resources>
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup Name="CommonStates">
+            <VisualState Name="Normal" />
+            <VisualState x:Name="Selected">
+                <VisualState.Setters>
+                    <Setter Property="BackgroundColor"
+                            Value="#e3e3e3" />
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Grid Grid.Row="0"
+          HeightRequest="215">
+        
+        <ff:CachedImage Source="{Binding Poster, Converter={StaticResource PosterMinifiedConverter}}"
+               Aspect="AspectFill" />
+        <Frame BackgroundColor="#66032541"
+               HorizontalOptions="Start"
+               VerticalOptions="End"
+               Margin="0,0,0,-10" 
+               HasShadow="True"
+               WidthRequest="46" 
+               HeightRequest="46"
+               CornerRadius="23"
+               Padding="0">
+            <Label TextColor="White"
+                   Text="{Binding Rate}"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+        </Frame>
+        <ImageButton Source="{Binding IsFavorite, 
+                              Converter={StaticResource FavIconConverter}}"
+                     x:Name="favButton"
+                     Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, 
+                                        Path=BindingContext.FavoriteButtonCommand}"
+                     CommandParameter="{Binding .}"
+                     BackgroundColor="#66032541"
+                     WidthRequest="40" HeightRequest="40"
+                     Padding="10"
+                     Margin="0,0,-10,0"
+                     CornerRadius="20" 
+                     VerticalOptions="Start"
+                     HorizontalOptions="End" />
+    </Grid>
+
+    <Label Grid.Row="1" 
+           Text="{Binding Name}"
+           FontAttributes="Bold" />
+    <Label Grid.Row="2"
+           Text="{Binding ReleaseDate, StringFormat='{0:MMM dd, yyyy}'}"
+           FontAttributes="Italic" />
+
+</Grid>

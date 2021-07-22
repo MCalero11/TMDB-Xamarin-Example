@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:templates="clr-namespace:Movies.Forms.Views.Templates"
+             x:Class="Movies.Forms.Views.tab_favorites.FavoritesPage"
+             Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="FilmItemTemplate">
+                <templates:FilmItemView/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                     Command="{Binding RefreshCommand}">
+            <StackLayout>
+                <Grid Margin="20,20,20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                           Text="Sort by" />
+                    <Picker Grid.Column="1"
+                            VerticalOptions="Center"
+                            Title="Select an option"
+                            ItemsSource="{Binding SortOptions}"
+                            SelectedItem="{Binding SortOptionSelected, Mode=TwoWay}"
+                            ItemDisplayBinding="{Binding Key}"
+                            HeightRequest="65"/>
+                </Grid>
+                <CollectionView ItemsSource="{Binding FavoriteFilms}" 
+                                ItemsLayout="VerticalGrid, 2"
+                                SelectionMode="Single"
+                                SelectionChangedCommand="{Binding SelectedItemCommand}"
+                                SelectedItem="{Binding SelectedFilm}"
+                                ItemTemplate="{StaticResource FilmItemTemplate}"
+                                HorizontalOptions="FillAndExpand">
+                </CollectionView>
+            </StackLayout>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+      xmlns:converts="clr-namespace:Movies.Forms.Converters"
+             x:Class="Movies.Forms.Views.Templates.FilmDetailsView">
+    <Grid.Resources>
+        <ResourceDictionary>
+            <converts:AddFavIconStatusConverter x:Key="FavIconConverter" />
+            <converts:PosterConverter x:Key="SourcePosterConverter" />
+        </ResourceDictionary>
+    </Grid.Resources>
+    <ff:CachedImage Source="{Binding Poster, Converter={StaticResource SourcePosterConverter}}"
+                    Aspect="AspectFill" 
+                    x:Name="posterimg"/>
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0"
+                  BackgroundColor="Transparent"
+                  BindingContext="{x:Reference posterimg}"
+                  HeightRequest="{Binding Height}"
+                  >
+                <Grid Grid.Row="0" 
+                      VerticalOptions="End"
+                      Padding="20,0">
+                    <ImageButton Source="{Binding IsFav, 
+                                 Converter={StaticResource FavIconConverter}}"
+                                 Command="{Binding Source={RelativeSource 
+                                        AncestorType={x:Type RefreshView}}, 
+                                        Path=BindingContext.FavoriteButtonCommand}"
+                     BackgroundColor="Transparent"
+                     WidthRequest="46" HeightRequest="46"
+                     Padding="10" 
+                     Margin="0,0,0,4"
+                     CornerRadius="23" 
+                     VerticalOptions="Start"
+                     HorizontalOptions="End" />
+                </Grid>
+            </Grid>
+            <Grid BackgroundColor="White"
+                  Grid.Row="1"
+                  Padding="20,0,20,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="0,-56,0,0">
+                    <Frame BackgroundColor="#032541"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="0,0,0,0" 
+               HasShadow="True"
+               WidthRequest="46" 
+               HeightRequest="46"
+               CornerRadius="23"
+               Padding="0">
+                        <Label TextColor="White"
+                   Text="{Binding Rating}"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+                    </Frame>
+                    <ImageButton Source="{Binding IsFav, 
+                              Converter={StaticResource FavIconConverter}}"
+                             Command="{Binding Source={RelativeSource 
+                                        AncestorType={x:Type RefreshView}}, 
+                                        Path=BindingContext.FavoriteButtonCommand}"
+                     BackgroundColor="#032541"
+                     WidthRequest="46" HeightRequest="46"
+                     Padding="10" 
+                     Margin="0,0,0,0"
+                     CornerRadius="23" 
+                     VerticalOptions="Start"
+                     HorizontalOptions="End" />
+                </Grid>
+                <Label Grid.Row="1" 
+           Text="{Binding TitleFilm}"
+           FontAttributes="Bold" 
+                       Margin="0,5,0,0"/>
+                <Label Grid.Row="2"
+           Text="{Binding Release, StringFormat='{0:MMM dd, yyyy}'}"
+           FontAttributes="Italic" />
+                <Label Grid.Row="3" 
+                       MaxLines="300"
+                       Text="{Binding Synopsis}"
+                       LineHeight="1.15"/>
+            </Grid>
+            
+
+        </Grid>
+
+    </ScrollView>
+    
+    
+    
+</Grid>
